@@ -114,9 +114,6 @@ ENV/
 *.model
 
 !documentation/assets/scribble_example.png
-!documentation/assets/nnU-Net_overview.png
-!documentation/assets/HI_Logo.png
-!documentation/assets/dkfz_logo.png
  
 # Exclude local TA dataset from version control
 TA/
