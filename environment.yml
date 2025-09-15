@@ -1,0 +1,50 @@
+# nnU-Net v2 Conda environment
+#
+# Notes:
+# - Default config installs GPU-enabled PyTorch (CUDA 12.1). If you need CPU-only,
+#   comment out the `pytorch-cuda` line and add `cpuonly` to dependencies.
+# - Python 3.10 is chosen for broad compatibility with nnU-Net v2.
+# - Most scientific libs come from conda; remaining packages are installed via pip.
+
+name: seg
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+
+  # Core scientific stack from conda (fast, compiled builds)
+  - numpy>=1.24
+  - scipy
+  - scikit-learn
+  - scikit-image>=0.19.3
+  - simpleitk>=2.2.1
+  - pandas
+  - matplotlib
+  - seaborn
+  - imagecodecs
+  - tifffile
+  - nibabel
+  - yacs
+  - graphviz            # graphviz binaries
+  - python-graphviz     # python bindings to graphviz
+  - tqdm
+  - requests
+
+  # pip packages (GPU PyTorch cu126 and pip-only libs)
+  - pip:
+      # Use NVIDIA GPU build for PyTorch matching your driver (CUDA 12.7 capable)
+      - --extra-index-url https://download.pytorch.org/whl/cu126
+      - torch==2.7.1+cu126
+
+      # Install this repo in editable mode
+      - -e .
+
+      # Explicit dependencies aligned with pyproject.toml
+      - acvl-utils>=0.2.3,<0.3
+      - dynamic-network-architectures>=0.4.1,<0.5
+      - batchgenerators>=0.25.1
+      - batchgeneratorsv2>=0.3.0
+      - einops
+      - blosc2>=3.0.0b1
